@@ -1,0 +1,3 @@
+[[tls.certificates]]
+   certFile = "/configuration/_wildcard.shub.localhost.pem"
+   keyFile = "/configuration/_wildcard.shub.localhost-key.pem"
