@@ -7,6 +7,7 @@ services:
     container_name: "traefik"
     command:
       - "--api.insecure=true"
+      - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
@@ -22,6 +23,12 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./configuration:/configuration"
+
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.services.traefik-admin.loadbalancer.server.port=8080"
+    - "traefik.http.routers.traefik-admin.rule=Host(`traefik.shub.localhost`)"
+    - "traefik.http.routers.traefik-admin.tls=true"
 
 networks:
   default:
