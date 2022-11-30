@@ -3,7 +3,7 @@
 [Traefik](https://traefik.io/) is a reverse proxy that can provide TLS termination makes running many
 services locally painless.
 
-# Traefik Setup for Shub
+## Host Setup
 
 1. Install [`mkcert`](https://github.com/FiloSottile/mkcert) on your host OS and create a set of keys for \*.shub.localhost:
 
@@ -75,3 +75,5 @@ services:
 
 Restart your app's containers (`docker compose restart`). No
 need to restart Traefik; it will detect the new labels for your services automatically.
+
+Your app should be available at `https://<your service>.shub.localhost`.
