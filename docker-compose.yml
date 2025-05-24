@@ -1,9 +1,7 @@
-
-version: '3'
+version: "3"
 services:
-
   traefik:
-    image: "traefik:v2.8"
+    image: "traefik:v2.11"
     container_name: "traefik"
     command:
       - "--api.insecure=true"
@@ -17,21 +15,22 @@ services:
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--providers.file.directory=/configuration/"
       - "--providers.file.watch=true"
-
+    networks:
+      - default
+      - traefik
     ports:
       - "80:80"
       - "443:443"
-
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./configuration:/configuration"
-
     labels:
-    - "traefik.enable=true"
-    - "traefik.http.services.traefik-admin.loadbalancer.server.port=8080"
-    - "traefik.http.routers.traefik-admin.rule=Host(`traefik.shub.localhost`)"
-    - "traefik.http.routers.traefik-admin.tls=true"
-
+      - "traefik.enable=true"
+      - "traefik.http.services.traefik-admin.loadbalancer.server.port=8080"
+      - "traefik.http.routers.traefik-admin.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.traefik-admin.tls=true"
 networks:
   default:
     name: shub
+  traefik:
+    name: traefik
