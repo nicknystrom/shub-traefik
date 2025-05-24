@@ -1,7 +1,6 @@
-version: "3"
 services:
   traefik:
-    image: "traefik:v2.11"
+    image: "traefik:v3.4"
     container_name: "traefik"
     command:
       - "--api.insecure=true"
@@ -26,6 +25,7 @@ services:
       - "./configuration:/configuration"
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.traefik-admin.service=api@internal"
       - "traefik.http.services.traefik-admin.loadbalancer.server.port=8080"
       - "traefik.http.routers.traefik-admin.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.traefik-admin.tls=true"
